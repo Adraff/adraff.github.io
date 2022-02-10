@@ -1,0 +1,471 @@
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        background: rgb(68, 68, 68);
+    }
+
+    :root {
+        --time: 1.5s;
+        --clr-pink: rgb(255, 0, 85);
+        --clr-lime: rgb(187, 255, 0);
+        --clr-blue: rgb(0, 195, 255);
+        --clr-yellow: rgb(255, 255, 0);
+    }
+
+   /* Header start*/
+
+   header {
+    position: fixed;
+    width: 50px;
+    background: linear-gradient(to bottom, #ffffff2a, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.014));
+    box-sizing: content-box;
+    left: 10px;
+    top: 10px;
+    padding: 10px; 
+    backdrop-filter: blur(5px);
+    border-top: 1px solid rgba(245, 245, 245, 0.4);
+    border-right: 1px solid rgba(245, 245, 245, 0.2);
+    box-shadow: 0 5px 45px rgba(0, 0, 0, 0.123);
+    border-radius: 10px;
+    z-index: 500;
+    transition: 1s;
+    overflow: hidden;
+    display: flex;
+}
+
+.img {
+    width: 50px;
+    height: 50px;
+    border-radius: 10%;
+    transform: scale(1.5);
+    transition: .5s;
+}
+
+nav {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    flex-direction: column;
+    transition: .2s;
+
+}
+
+nav ul {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform:uppercase;
+    list-style: none;
+}
+
+nav li {
+    position: relative;
+    margin: 0 20px;
+    display: inline;
+    background: linear-gradient(to top, #ffffff2a, rgba(255, 255, 255, 0.014));
+    border-top: 1px solid rgba(245, 245, 245, 0.4);
+    border-right: 1px solid rgba(245, 245, 245, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.048);
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: small;
+    left: 20px;
+}
+
+nav ul a{
+    text-decoration: none;
+    color: whitesmoke;
+    /* outline: 1px solid red; */
+    line-height: 0;
+    
+    
+}
+
+.here {
+    color: yellow;
+}
+
+.light__wide{
+    position: absolute;
+    width: 70px;
+    height: 100px;
+    left: 50px;
+    background: #ffffff20;
+    filter: blur(1px);
+    transform: skewX(45deg);
+    transition: 2s ease-out;
+}
+
+.light__slim{
+    position: absolute;
+    width: 10px;
+    height: 100px;
+    background: #ffffff20;
+    filter: blur(1px);
+    transform: skewX(45deg);
+}
+
+.light {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: -10px;
+    left: -200px;
+    transition: 1s ease-in;
+    z-index: 450;
+}
+
+/* hovers */
+
+header:hover nav {
+    transition-delay: .5s;
+    opacity: 100%;
+}
+
+header:hover .img {
+    animation-name: img_breath;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+    animation-duration: 3s;
+}
+
+header:hover > .light  {
+    left: 110%;
+}
+
+header:hover {
+    width: 500px;
+}
+
+nav li:hover {
+    background: rgba(245, 245, 245, 0.288);
+}
+
+/* hovers end  */
+
+/* header end */
+
+
+    .container {
+        position: absolute;
+        width: 50%;
+        height: 80%;
+        display: block;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        max-width: 500px;
+    }
+    
+    
+    
+    .container div {
+        margin: 0 auto;
+    }
+
+
+    .top, .but {
+        height: 10px;
+        width: 80%;
+        border-radius: 100px;
+    }
+
+    .top {
+        position: absolute;
+        background-color: whitesmoke;
+        bottom: 100%;
+        left: 50%;
+        transform: translate(-50%,0);
+        animation-name: lime;
+        animation-duration: var(--time);
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+
+    .but {
+        position: absolute;
+        background-color: whitesmoke;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,0);
+        animation-name: pink;
+        animation-duration: var(--time);
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+
+    }
+
+    .cir {
+        position: absolute;
+        background: rgb(236, 236, 236);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,-100%);
+        margin: 0 10px;
+        animation-name: cir;
+        animation-duration: var(--time);
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-out;
+    }
+
+    /* Segundo container */
+
+    .container2 {
+        position: absolute;
+        width: 80%;
+        height: 50%;
+        display: block;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        max-width: 760.8px;
+    }
+
+    .container2 div {
+        margin: 0 auto;
+    }
+
+    .top2, .but2 {
+        height: 80%;
+        width: 10px;
+        border-radius: 100px;
+    }
+
+    .top2 {
+        position: absolute;
+        background-color: whitesmoke;
+        right: 100%;
+        top: 50%;
+        transform: translate(0,-50%);
+        animation-name: lime2;
+        animation-duration: var(--time);
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-delay: calc(var(--time)/4);
+    }
+
+    .but2 {
+        position: absolute;
+        background-color: whitesmoke;
+        left: 100%;
+        top: 50%;
+        transform: translate(0,-50%);
+        animation-name: pink2;
+        animation-duration: var(--time);
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-delay: calc(var(--time)/4);
+
+    }
+
+    .cir2 {
+        position: absolute;
+        background: rgb(236, 236, 236);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        left: 0;
+        top: 50%;
+        transform: translate(0,-50%);
+        margin: 0 10px;
+        animation-name: cir2;
+        animation-duration: var(--time);
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-out;
+        animation-delay: calc(var(--time)/4);
+    }
+
+    /* Center */
+
+
+    /* .center {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: white;
+        display: flex;
+    }
+
+    .line1 {
+        width: 25%;
+        height: 100%;
+        background: red;
+    }
+
+    .line2 {
+        position: absolute;
+        width: 25%;
+        height: 100%;
+        background: red;
+        left: 100%;
+
+    } */
+
+
+
+
+@keyframes cir {
+    0% {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%,0);
+
+    }
+
+
+    50% {
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%,-100%);
+    }
+    
+    100% {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%,0);
+
+    }
+}
+
+
+
+
+@keyframes lime {
+    0% {
+        background: var(--clr-lime);
+        box-shadow: 0 0 50px var(--clr-lime);
+
+    }
+
+    50% {
+        background: whitesmoke;
+    }
+    
+    99% {
+        background: whitesmoke;
+    }
+
+    100% {;
+
+    }
+
+    
+}
+
+@keyframes pink {
+    0% {
+        background: whitesmoke;
+
+    }
+
+    49% {
+        background: whitesmoke;
+        
+        box-shadow: 0 0 0px;
+    }
+
+    50% {
+        background: var(--clr-pink);
+        box-shadow: 0 0 50px var(--clr-pink);
+    }
+    
+    99% {
+        background: whitesmoke;
+        box-shadow: 0 0 0px;
+    }
+
+    
+    
+    
+
+}
+
+
+/* Animaciones 2 */
+
+
+@keyframes cir2 {
+    0% {
+        left: 0;
+        top: 50%;
+        transform: translate(0,-50%);
+
+    }
+
+
+    50% {
+        left: 100%;
+        top: 50%;
+        transform: translate(-100%,0);
+    }
+    
+    100% {
+        left: 0;
+        top: 50%;
+        transform: translate(0,-50%);
+
+    }
+}
+
+
+
+
+@keyframes lime2 {
+    0% {
+        background: var(--clr-blue);
+        box-shadow: 0 0 50px var(--clr-blue);
+
+    }
+
+    50% {
+        background: whitesmoke;
+    }
+    
+    99% {
+        background: whitesmoke;
+    }
+
+    100% {;
+
+    }
+
+    
+}
+
+@keyframes pink2 {
+    0% {
+        background: whitesmoke;
+
+    }
+
+    49% {
+        background: whitesmoke;
+        
+        box-shadow: 0 0 0px;
+    }
+
+    50% {
+        background: var(--clr-yellow);
+        box-shadow: 0 0 50px var(--clr-yellow);
+    }
+    
+    99% {
+        background: whitesmoke;
+        box-shadow: 0 0 0px;
+    }
+
+    
+    
+    
+
+}
