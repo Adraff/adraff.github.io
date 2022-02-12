@@ -316,25 +316,43 @@ nav li:hover {
 
 @keyframes cir {
     0% {
-        top: 0;
-        left: 50%;
-        transform: translate(-50%,0);
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 30px;
+    height: 10px;
+  }
 
-    }
+  10% {
+    width: 10px;
+    height: 30px;
+  }
 
+  49% {
+    width: 20px;
+    height: 20px;
+  }
 
-    50% {
-        top: 100%;
-        left: 50%;
-        transform: translate(-50%,-100%);
-    }
-    
-    100% {
-        top: 0;
-        left: 50%;
-        transform: translate(-50%,0);
+  50% {
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: 30px;
+    height: 10px;
+  }
 
-    }
+  60% {
+    width: 10px;
+    height: 30px;
+  }
+
+  100% {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 20px;
+    height: 20px;
+  }
 }
 
 
@@ -396,25 +414,42 @@ nav li:hover {
 
 @keyframes cir2 {
     0% {
-        left: 0;
-        top: 50%;
-        transform: translate(0,-50%);
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 10px;
+    height: 30px;
+  }
+  
+  10% {
+    width: 30px;
+    height: 10px;
+  }
+  
+  49% {
+    width: 20px;
+    height: 20px;
+  }
 
-    }
+  50% {
+    left: 100%;
+    top: 50%;
+    transform: translate(-100%, 0);
+    width: 10px;
+    height: 30px;
+  }
+  
+  60% {
+    width: 30px;
+    height: 10px;
+  }
 
 
-    50% {
-        left: 100%;
-        top: 50%;
-        transform: translate(-100%,0);
-    }
-    
-    100% {
-        left: 0;
-        top: 50%;
-        transform: translate(0,-50%);
-
-    }
+  100% {
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
 }
 
 
