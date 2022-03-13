@@ -29,7 +29,7 @@ body {
   transform: scale(1.2) rotateY(180deg);
   /* outline: 1px solid red; */
   display: flex;
-  margin: 50px;
+  margin: 100px;
 }
 
 .card {
