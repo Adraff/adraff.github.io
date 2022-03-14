@@ -14,11 +14,14 @@
   --speed: .5s;
 }
 
+body {
+  background: #333;
+}
+
 .card__container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #333;
   width: 100%;
   height: 100vh;
   flex-wrap: wrap;
