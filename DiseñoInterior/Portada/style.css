@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden; /* Asegura que siempre haya una barra de desplazamiento vertical */
+    background-color: black;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+img {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100%;
+    position: absolute;
+    z-index: 100;
+}
+
+body {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+
+  }
+  
+  
+  .stock-ticker {
+    font-size: 25px;
+    padding-block: 2px;
+    overflow: hidden;
+    user-select: none;
+  
+    --gap: 20px;
+    display: flex;
+    gap: var(--gap);
+    
+    z-index: 100000;
+    position:fixed;
+    bottom: 0;
+
+    background-color: rgba(0, 0, 0, 40%);
+  }
+  
+  .stock-ticker ul {
+    list-style: none;
+    flex-shrink: 0;
+    min-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--gap);
+  
+    animation: scroll 30s linear infinite;
+  }
+  
+  .stock-ticker:hover ul {
+    animation-play-state: paused;
+  }
+  
+  @keyframes scroll {
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  
+  
+  .naranja {
+      color: #ff5e17;
+  }
+
+.blanco {
+    color: #ffffff;
+}
+
+/* Boton sumario */
+
+.btn-sumario {
+  position: fixed;
+  bottom: 100px;
+  right: 70px;
+  background-color: #ff5e17;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  z-index: 100000; /* Ensures the button is on top */
+  border-radius: 50px;
+}
+
+.btn-sumario:hover {
+  background-color: #ffffff;
+  color: #ff5e17;
+}
