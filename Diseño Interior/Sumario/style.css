@@ -1,0 +1,61 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.sumario .bg {
+    max-height: 100vh;
+    height: auto;
+    width: auto;
+    
+    
+    
+}
+
+.sumario .bg-hover {
+    max-height: 100vh;
+    height: auto;
+    width: auto;
+    position: absolute;
+    opacity: 0%;
+    transition: 0.3s;
+    
+}
+
+
+.button-container {
+    position: absolute;
+    left: 50.5%;
+    top: 72%;
+    z-index: 1000;
+}
+
+.button-container button {
+left: 500px;
+    width: 150px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.button-container button:nth-child(1) { 
+        border: 0;
+        background-color: rgba(0, 0, 0, 0);
+}
+
+.button-container:hover + .bg-hover {
+        opacity: 100%;
+}

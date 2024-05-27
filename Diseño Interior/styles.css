@@ -1,0 +1,227 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll; /* Asegura que siempre haya una barra de desplazamiento vertical */
+}
+section {
+    display: flex;
+    flex-direction: column;
+}
+img {
+    width: 100%;
+    display: block;
+}
+div {
+    margin: 0;
+    padding: 0;
+}
+/* Estilizado de la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 15px; /* Ancho del deslizador */
+}
+::-webkit-scrollbar-track {
+    background: rgb(0, 0, 0); /* Fondo negro con 10% de opacidad */
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.233); /* Deslizador negro con 30% de opacidad */
+
+}
+/* Ocultar las flechas de los extremos */
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* Estilos para el botón de scroll hacia arriba */
+#scrollToTopBtn {
+    position: fixed; /* Fija el botón en la ventana del navegador */
+    bottom: 10px; /* 10px de separación desde el borde inferior */
+    right: 10px; /* 10px de separación desde el borde derecho */
+    width: 50px; /* Ancho del botón */
+    height: 50px; /* Altura del botón */
+    background-color: #ff5e17; /* Color de fondo negro */
+    color: white; /* Color del texto blanco */
+    font-size: 24px; /* Tamaño de la fuente del botón */
+    border: none; /* Sin bordes */
+    border-radius: 50%; /* Botón redondo */
+    cursor: pointer; /* Cursor tipo puntero al pasar el mouse */
+    z-index: 1000; /* Coloca el botón encima de otros elementos */
+}
+
+#scrollToTopBtn:hover {
+    background-color: #333; /* Cambia el color de fondo al pasar el mouse */
+}
+
+.section_scroll {
+    position: absolute;
+    top: 1px;
+    outline: 1px solid blue;
+    width: 100%;
+    height: 100px;
+}
+
+#section_1 {
+    top: 100rem;
+}
+
+#botones_secciones {
+    display: block;
+}
+
+.botones_secciones_container {
+    top: 0;
+    display: block;
+    position: absolute;
+}
+
+.botones_secciones_container button {
+    position: absolute;
+    z-index: 1000000;
+}
+
+.hover_divs {
+    top: 0;
+    display: block;
+    position: absolute;
+}
+
+.hover_divs div {
+    position: absolute;
+}
+
+button {
+    background-color: rgba(0, 0, 0, 0);
+    border: rgba(0, 0, 0, 0);
+}
+
+.boton_fundamentos {
+top: 12.1vw;
+left: 6.2vw;
+width: 10.6vw;
+height: 2vw;
+cursor: pointer;
+
+}
+
+.boton_mate {
+    top: 17.5vw;
+    left: 6.2vw;
+    width: 4.6vw;
+    height: 2vw;
+    cursor: pointer;
+}
+
+.boton_aeromexico {
+    top: 22.9vw;
+    left: 6.2vw;
+    width: 8.9vw;
+    height: 2vw;
+    cursor: pointer;
+}
+
+.boton_nike {
+    top: 28.3vw;
+    left: 6.2vw;
+    width: 11.7vw;
+    height: 2vw;
+    cursor: pointer;
+}
+
+
+.boton_fundamentos .hover_boton,
+.boton_mate .hover_boton,
+.boton_aeromexico .hover_boton,
+.boton_nike .hover_boton {
+margin-top: 1.6vw;
+height: 0.3vw;
+transform-origin: left;
+transform: scaleX(0);
+transition: ease-in-out 0.15s;
+z-index: 1000;
+}
+
+.botones_secciones_container button:hover .hover_boton {
+    transform: scaleX(1);
+}
+
+/* Estilos específicos para cada div de hover */
+#hover_boton_1 {
+    background-color: #ff0000;
+}
+#hover_boton_2 {
+    background-color: #3bb29b;
+}
+#hover_boton_3 {
+    background-color: #074de8;
+}
+#hover_boton_4 {
+    background-color: #cb162e;
+}
+
+/* Botones videos */
+.botones_videos_container {
+    top: 0;
+    display: block;
+    position: absolute;
+    z-index: 999;
+}
+
+.botones_videos_container button {
+    position: absolute;
+}
+
+.botones_videos {
+    width: 11.28vw;
+    height: 4.5vw;
+    cursor: pointer;
+    border-radius: 2vw;
+}
+
+#botones_videos_1 {
+    left: 6.3vw;
+    top: 149vw;
+}
+
+#botones_videos_2 {
+    left: 40vw;
+    top: 487vw;
+}
+
+#botones_videos_3 {
+    left: 6vw;
+    top: 600vw;
+}
+
+#botones_videos_4 {
+    left: 6.1vw;
+    top: 976vw;
+}
+
+section {
+    z-index: 9;
+}
+
+#grilla {
+    position: absolute;
+    top: 0;
+    display: none;
+    z-index: 10;
+}
+
+#toggleGrillaButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 10000;
+    border-radius: 50px;
+    opacity: 20%;
+}
