@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.39 127.39">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: .5;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: .45px;
+      }
+
+      .cls-3 {
+        opacity: .1;
+      }
+
+      .cls-4 {
+        fill: #fff;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <g>
+      <g class="cls-1">
+        <g class="cls-3">
+          <path class="cls-4" d="M63.57.35v63.22H.35V.35h63.22M63.7.23H.23v63.47h63.47V.23h0Z"/>
+        </g>
+      </g>
+      <polyline class="cls-2" points=".23 3.4 .23 .23 3.4 .23"/>
+      <polyline class="cls-2" points="60.52 .23 63.7 .23 63.7 3.4"/>
+      <polyline class="cls-2" points="63.7 60.52 63.7 63.7 60.52 63.7"/>
+      <polyline class="cls-2" points="3.4 63.7 .23 63.7 .23 60.52"/>
+    </g>
+    <g>
+      <g class="cls-1">
+        <g class="cls-3">
+          <path class="cls-4" d="M127.04.35v63.22h-63.22V.35h63.22M127.17.23h-63.47v63.47h63.47V.23h0Z"/>
+        </g>
+      </g>
+      <polyline class="cls-2" points="63.7 3.4 63.7 .23 66.87 .23"/>
+      <polyline class="cls-2" points="124 .23 127.17 .23 127.17 3.4"/>
+      <polyline class="cls-2" points="127.17 60.52 127.17 63.7 124 63.7"/>
+      <polyline class="cls-2" points="66.87 63.7 63.7 63.7 63.7 60.52"/>
+    </g>
+    <g>
+      <g class="cls-1">
+        <g class="cls-3">
+          <path class="cls-4" d="M63.57,63.82v63.22H.35v-63.22h63.22M63.7,63.7H.23v63.47h63.47v-63.47h0Z"/>
+        </g>
+      </g>
+      <polyline class="cls-2" points=".23 66.87 .23 63.7 3.4 63.7"/>
+      <polyline class="cls-2" points="60.52 63.7 63.7 63.7 63.7 66.87"/>
+      <polyline class="cls-2" points="63.7 124 63.7 127.17 60.52 127.17"/>
+      <polyline class="cls-2" points="3.4 127.17 .23 127.17 .23 124"/>
+    </g>
+    <g>
+      <g class="cls-1">
+        <g class="cls-3">
+          <path class="cls-4" d="M127.04,63.82v63.22h-63.22v-63.22h63.22M127.17,63.7h-63.47v63.47h63.47v-63.47h0Z"/>
+        </g>
+      </g>
+      <polyline class="cls-2" points="63.7 66.87 63.7 63.7 66.87 63.7"/>
+      <polyline class="cls-2" points="124 63.7 127.17 63.7 127.17 66.87"/>
+      <polyline class="cls-2" points="127.17 124 127.17 127.17 124 127.17"/>
+      <polyline class="cls-2" points="66.87 127.17 63.7 127.17 63.7 124"/>
+    </g>
+    <g class="cls-3">
+      <path class="cls-4" d="M126.92.48v126.44H.48V.48h126.44M127.17.23H.23v126.94h126.94V.23h0Z"/>
+    </g>
+  </g>
+</svg>
