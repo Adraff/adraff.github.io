@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 63.47 63.47">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: .05;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <g>
+      <g>
+        <g class="cls-1">
+          <path class="cls-2" d="M63.35.13v63.22H.12V.13h63.22M63.47,0H0v63.47h63.47V0h0Z"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="63.24" width=".23" height="3.17"/>
+          <rect class="cls-2" x="61.77" y="-1.47" width=".23" height="3.17" transform="translate(62 -61.77) rotate(90)"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="1.47" y="-1.47" width=".23" height="3.17" transform="translate(1.47 1.7) rotate(-90)"/>
+          <rect class="cls-2" x="0" width=".23" height="3.17"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="0" y="60.3" width=".23" height="3.17" transform="translate(.23 123.77) rotate(180)"/>
+          <rect class="cls-2" x="1.47" y="61.77" width=".23" height="3.17" transform="translate(-61.77 64.94) rotate(-90)"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="61.77" y="61.77" width=".23" height="3.17" transform="translate(125.24 1.47) rotate(90)"/>
+          <rect class="cls-2" x="63.24" y="60.3" width=".23" height="3.17" transform="translate(126.71 123.77) rotate(180)"/>
+        </g>
+      </g>
+      <g>
+        <g class="cls-1">
+          <path class="cls-2" d="M31.61.13v31.49H.12V.13h31.49M31.74,0H0v31.74h31.74V0h0Z"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="31.62" width=".12" height="1.59"/>
+          <rect class="cls-2" x="30.88" y="-.74" width=".12" height="1.59" transform="translate(31 -30.88) rotate(90)"/>
+        </g>
+        <g>
+          <rect class="cls-2" x=".74" y="-.74" width=".12" height="1.59" transform="translate(.74 .85) rotate(-90)"/>
+          <rect class="cls-2" x="0" width=".12" height="1.59"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="0" y="30.15" width=".12" height="1.59" transform="translate(.12 61.89) rotate(180)"/>
+          <rect class="cls-2" x=".74" y="30.88" width=".12" height="1.59" transform="translate(-30.88 32.47) rotate(-90)"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="30.88" y="30.88" width=".12" height="1.59" transform="translate(62.62 .74) rotate(90)"/>
+          <rect class="cls-2" x="31.62" y="30.15" width=".12" height="1.59" transform="translate(63.36 61.89) rotate(180)"/>
+        </g>
+      </g>
+      <g>
+        <g class="cls-1">
+          <path class="cls-2" d="M63.35.13v31.49h-31.49V.13h31.49M63.47,0h-31.74v31.74h31.74V0h0Z"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="63.36" width=".12" height="1.59"/>
+          <rect class="cls-2" x="62.62" y="-.74" width=".12" height="1.59" transform="translate(62.74 -62.62) rotate(90)"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="32.47" y="-.74" width=".12" height="1.59" transform="translate(32.47 32.59) rotate(-90)"/>
+          <rect class="cls-2" x="31.74" width=".12" height="1.59"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="31.74" y="30.15" width=".12" height="1.59" transform="translate(63.59 61.89) rotate(180)"/>
+          <rect class="cls-2" x="32.47" y="30.88" width=".12" height="1.59" transform="translate(.85 64.21) rotate(-90)"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="62.62" y="30.88" width=".12" height="1.59" transform="translate(94.36 -31) rotate(90)"/>
+          <rect class="cls-2" x="63.36" y="30.15" width=".12" height="1.59" transform="translate(126.83 61.89) rotate(180)"/>
+        </g>
+      </g>
+      <g>
+        <g class="cls-1">
+          <path class="cls-2" d="M31.61,31.75v31.49H.12v-31.49h31.49M31.74,31.62H0v31.74h31.74v-31.74h0Z"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="31.62" y="31.62" width=".12" height="1.59"/>
+          <rect class="cls-2" x="30.88" y="30.88" width=".12" height="1.59" transform="translate(62.62 .74) rotate(90)"/>
+        </g>
+        <g>
+          <rect class="cls-2" x=".74" y="30.88" width=".12" height="1.59" transform="translate(-30.88 32.47) rotate(-90)"/>
+          <rect class="cls-2" x="0" y="31.62" width=".12" height="1.59"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="0" y="61.77" width=".12" height="1.59" transform="translate(.12 125.13) rotate(180)"/>
+          <rect class="cls-2" x=".74" y="62.51" width=".12" height="1.59" transform="translate(-62.51 64.09) rotate(-90)"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="30.88" y="62.51" width=".12" height="1.59" transform="translate(94.24 32.36) rotate(90)"/>
+          <rect class="cls-2" x="31.62" y="61.77" width=".12" height="1.59" transform="translate(63.36 125.13) rotate(180)"/>
+        </g>
+      </g>
+      <g>
+        <g class="cls-1">
+          <path class="cls-2" d="M63.35,31.75v31.49h-31.49v-31.49h31.49M63.47,31.62h-31.74v31.74h31.74v-31.74h0Z"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="63.36" y="31.62" width=".12" height="1.59"/>
+          <rect class="cls-2" x="62.62" y="30.88" width=".12" height="1.59" transform="translate(94.36 -31) rotate(90)"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="32.47" y="30.88" width=".12" height="1.59" transform="translate(.85 64.21) rotate(-90)"/>
+          <rect class="cls-2" x="31.74" y="31.62" width=".12" height="1.59"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="31.74" y="61.77" width=".12" height="1.59" transform="translate(63.59 125.13) rotate(180)"/>
+          <rect class="cls-2" x="32.47" y="62.51" width=".12" height="1.59" transform="translate(-30.77 95.83) rotate(-90)"/>
+        </g>
+        <g>
+          <rect class="cls-2" x="62.62" y="62.51" width=".12" height="1.59" transform="translate(125.98 .62) rotate(90)"/>
+          <rect class="cls-2" x="63.36" y="61.77" width=".12" height="1.59" transform="translate(126.83 125.13) rotate(180)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
