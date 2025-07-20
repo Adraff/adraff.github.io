@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+<script type="module" src="script.js" defer></script>
+<body>
+    <div class="contador-container">
+        <h1>Contador de puntos</h1>
+        <p>Precione el boton para sumar un punto doble</p>
+        <div class="puntos-container">
+            <div class="point-box puntos-dobles">
+                <label>Puntos Dobles</label>
+                <span id="puntosDobles">1</span>
+            </div>
+            <div class="point-box puntos-simples">
+                <label>Puntos Simples</label>
+                <span>1</span>
+            </div>
+            
+        </div>
+        <div class="botones-container">
+                <button class="add-btn" id="addBtn">Añadir punto doble</button>
+                <button class="sub-btn" id="subBtn">Restar punto doble</button>
+            </div>
+    </div>
+</body>
+</html>

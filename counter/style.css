@@ -1,0 +1,122 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+:root {
+    --color-1: #90BE6D;
+    --color-1-light: #C9E3AC;
+    --color-2: #EA9010;
+    --color-2-dark: #37371F;
+    --color-white: snow;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-1-light);
+    height: 100vh;
+}
+
+.icons {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+.contador-container {
+    background-color: var(--color-1);
+    padding: 1rem;
+    border-radius: 10px;
+    /* box-shadow: 0 0 20px var(--color-2-dark); */
+    color: var(--color-white);
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.puntos-container {
+    /* outline: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.point-box {
+    /* outline: 1px solid blue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #C9E3AC;
+    color: #37371F;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.point-box label {
+    color: var(--color-2-dark);
+    opacity: 50%;
+    font-weight: 400;
+}
+
+.puntos-container span {
+    font-weight: 600;
+    font-size: 50px;
+}
+
+.botones-container {
+    /* outline: 1px solid orange; */
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.botones-container button {
+    width: 100%;
+    border-radius: 100px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.puntos-simples {
+    opacity: 60%;
+}
+
+.add-btn {
+    background-color: var(--color-2);
+    color: #EAEFBD;
+    font-weight: 600;
+    border: 3px solid var(--color-2);
+    transition: .1s ease all;
+    
+}
+
+.sub-btn {
+    background-color: transparent;
+    color: var(--color-1-light);
+    font-weight: 600;
+    border: 3px solid var(--color-1-light);
+    
+    transition: .1s ease all;
+}
+
+.add-btn:active {
+    transform: scale(1.1);
+}
+
+.sub-btn:active {
+    transform: scale(1.1);
+}
