@@ -15,21 +15,40 @@
     <div class="contador-container">
         <h1>Contador de puntos</h1>
         <p>Precione el boton para sumar un punto doble</p>
-        <div class="puntos-container">
-            <div class="point-box puntos-dobles">
-                <label>Puntos Dobles</label>
-                <span id="puntosDobles">1</span>
+
+        <div class="puntos-container puntos-container-altos">
+            <div class="point-box-container">
+                <button class="sub-btn point-button" id="subBtn"><span class="icons">remove</span></button>
+                <div class="point-box">
+                    <label>Puntos altos</label>
+                    <span id="puntosDobles">0</span>
+                </div>
+                <button class="add-btn point-button" id="addBtn"><span class="icons">add</span></button>
             </div>
-            <div class="point-box puntos-simples">
-                <label>Puntos Simples</label>
-                <span>1</span>
-            </div>
-            
         </div>
-        <div class="botones-container">
-                <button class="add-btn" id="addBtn">Añadir punto doble</button>
-                <button class="sub-btn" id="subBtn">Restar punto doble</button>
+
+        <div class="puntos-container puntos-container-bajos">
+            <div class="point-box-container">
+                <button class="sub-btn point-button" id="subBtnBajos"><span class="icons">remove</span></button>
+                <div class="point-box">
+                    <label>Puntos bajos</label>
+                    <span id="puntosBajos">0</span>
+                </div>
+                <button class="add-btn point-button" id="addBtnBajos"><span class="icons">add</span></button>
             </div>
+        </div>
+
+        <div class="puntos-container puntos-container-aumentos">
+            <div class="point-box-container">
+                <button class="sub-btn point-button" id="subBtnAumentos"><span class="icons">remove</span></button>
+                <div class="point-box">
+                    <label>Aumentos</label>
+                    <span id="puntosAumentos">0</span>
+                </div>
+                <button class="add-btn point-button" id="addBtnAumentos"><span class="icons">add</span></button>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
