@@ -6,11 +6,13 @@
 }
 
 :root {
-    --color-1: #90BE6D;
-    --color-1-light: #C9E3AC;
-    --color-2: #EA9010;
-    --color-2-dark: #37371F;
-    --color-white: snow;
+    --color-1: #4f4e4f;
+    --color-1-light: #373738;
+    --color-2: #8a58ff;
+    --color-2-dark: #2c2c2c;
+    --color-white: #fffafa;
+    --color-3: #ff9500;
+    --color-4: #20e934;
 }
 
 body {
@@ -18,14 +20,13 @@ body {
     justify-content: center;
     align-items: center;
     background-color: var(--color-1-light);
-    height: 100vh;
+    height: 100dvh;
 }
 
 .icons {
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -50,7 +51,7 @@ body {
 .puntos-container {
     /* outline: 1px solid red; */
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 20px;
 }
 
@@ -60,16 +61,36 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    background-color: #C9E3AC;
-    color: #37371F;
+    background-color: var(--color-white);
+    color: var(--color-2);
     padding: 10px;
     border-radius: 10px;
+}
+
+.point-box-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.point-box-container button {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 200px;
+}
+
+.point-box-container button span {
+    font-size: 40px;
 }
 
 .point-box label {
     color: var(--color-2-dark);
     opacity: 50%;
-    font-weight: 400;
+    font-weight: 600;
 }
 
 .puntos-container span {
@@ -77,31 +98,14 @@ body {
     font-size: 50px;
 }
 
-.botones-container {
-    /* outline: 1px solid orange; */
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-}
-
-.botones-container button {
-    width: 100%;
-    border-radius: 100px;
-    padding: 10px;
-    font-size: 15px;
-}
-
-.puntos-simples {
-    opacity: 60%;
-}
 
 .add-btn {
     background-color: var(--color-2);
-    color: #EAEFBD;
+    color: var(--color-white);
     font-weight: 600;
     border: 3px solid var(--color-2);
     transition: .1s ease all;
-    
+
 }
 
 .sub-btn {
@@ -109,7 +113,7 @@ body {
     color: var(--color-1-light);
     font-weight: 600;
     border: 3px solid var(--color-1-light);
-    
+
     transition: .1s ease all;
 }
 
@@ -119,4 +123,22 @@ body {
 
 .sub-btn:active {
     transform: scale(1.1);
+}
+
+.puntos-container-bajos .add-btn {
+    background-color: var(--color-3);
+    border-color: var(--color-3);
+}
+
+.puntos-container-bajos #puntosBajos {
+    color: var(--color-3);
+}
+
+.puntos-container-aumentos .add-btn {
+    background-color: var(--color-4);
+    border-color: var(--color-4);
+}
+
+.puntos-container-aumentos #puntosAumentos {
+    color: var(--color-4);
 }
