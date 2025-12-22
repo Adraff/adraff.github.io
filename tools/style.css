@@ -1,0 +1,165 @@
+*,
+::before,
+::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+:root {
+  --card-clr-drk: #77a;
+  --card-clr-darker: #77b;
+  --card-text-clr: whitesmoke;
+  --speed: 0.5s;
+}
+
+body {
+  background: #2e2e2e;
+}
+
+.card__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  flex-wrap: wrap;
+  gap: 100px;
+}
+
+.card__hover {
+  transform: rotateY(180deg);
+  transform: scale(1.2) rotateY(180deg);
+  /* outline: 1px solid red; */
+  display: flex;
+}
+
+.card_link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+
+  padding: 10px;
+  perspective: 1000px;
+  transition: ;
+  transform-style: preserve-3d;
+  outline: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  transition: transform var(--speed), box-shadow var(--speed), background-image 10s;
+}
+
+.card .sinopsis {
+  color: transparent;
+  max-height: 190px;
+  overflow-y: hidden;
+  text-overflow: string;
+  position: relative;
+  white-space: wrap;
+  transform: perspective(500px) translateZ(-30px);
+  transition: var(--speed);
+  color: whitesmoke;
+  font-size: 14px;
+  filter: blur(5px);
+  font-weight: 200;
+}
+
+.card .text-shadow {
+  width: 180px;
+  height: 190px;
+  outline: 1px solid red;
+  position: absolute;
+  background-image: linear-gradient(to bottom, transparent, red);
+}
+
+.card h2 {
+  color: whitesmoke;
+  transition: var(--speed);
+  transform: perspective(500px) translateZ(-30px);
+  /*   outline: 1px solid red; */
+
+  font-family: "Doto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "ROND" 20;
+  filter: blur(5px);
+}
+
+.image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 90%;
+  width: 90%;
+  background: rgb(151, 7, 7);
+  transition: var(--speed);
+  transition: var(--speed);
+  transform: perspective(500px) translateZ(30px) scale(0.9) translate(-52%, -52%) rotatey(180deg);
+  overflow: hidden;
+
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: end;
+  align-items: flex-end;
+}
+
+.image span {
+  padding: 10px;
+  font-family: "Doto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings: "ROND" 20;
+  color: whitesmoke;
+}
+
+/* -----------  Hovers  ----------- */
+.card__hover:hover {
+  z-index: 100;
+}
+
+.card__hover:hover .card {
+  transform: perspective(1000px) rotateY(180deg);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.032), rgba(255, 255, 255, 0.1));
+  box-shadow: 0 0 50px #0007;
+}
+
+.card__hover:hover .sinopsis {
+  transform: perspective(500px) translateZ(-30px);
+  filter: blur(0px);
+}
+
+.card__hover:hover h2 {
+  transform: perspective(500px) translateZ(-30px);
+  filter: blur(0px);
+}
+
+.card__hover:hover .image {
+  box-shadow: 0 0 10px #0004;
+
+  filter: blur(5px);
+}
+
+/* ---------------- Card colors variations --------------- */
+
+.card-1 .image {
+  background: rgb(61, 61, 197);
+}
+
+.card-2 .image {
+  background: rgb(197, 61, 111);
+}
+
+.card-3 .image {
+  background: rgb(54, 123, 37);
+}

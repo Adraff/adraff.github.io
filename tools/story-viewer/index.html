@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Story Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&icon_names=favorite,more_vert,send" />
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="page">
+    <section class="controls">
+      <div class="controls-header">
+        <p class="eyebrow">Visualizador de historias</p>
+        <h1>Previsualiza tu historia antes de publicar</h1>
+        <p class="hint">Rellena los datos, arrastra la historia al recuadro y mira la vista previa.</p>
+      </div>
+
+      <label class="field">
+        <span class="field-label">Nombre de la cuenta</span>
+        <input id="accountName" type="text" value="adraff.design" placeholder="@usuario" autocomplete="off" />
+      </label>
+
+      <div class="field">
+        <div class="field-label">Enlace de perfil de Instagram</div>
+        <input id="igProfileLink" type="url" placeholder="https://instagram.com/usuario" autocomplete="off" />
+        <p class="hint">Pega un enlace de perfil. Extraeremos el usuario y la foto.</p>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Foto de perfil</div>
+        <div class="profile-inputs">
+          <input id="profileUrl" type="url" placeholder="Pega la URL de la foto" autocomplete="off" />
+          <label class="file-chip" for="profileFile">Subir archivo</label>
+          <input id="profileFile" type="file" accept="image/*" hidden />
+        </div>
+        <p class="hint">Puedes pegar una URL o elegir una imagen. Se actualiza al instante.</p>
+      </div>
+
+      <div class="field" id="historia">
+        <div class="field-label">Historia</div>
+        <p class="hint">Arrastra la imagen directamente sobre la previsualizacion o haz clic en el recuadro.</p>
+        <button type="button" id="clearStory" class="ghost-button">Eliminar imagen</button>
+      </div>
+
+      <div class="field" id="resoluciones">
+        <div class="field-label">Resoluciones rapidas</div>
+        <div class="res-buttons" id="resButtons">
+          <button type="button" data-size="1080x1920">1080 x 1920 (FHD+ 9:16)</button>
+          <button type="button" data-size="1170x2532">1170 x 2532 (iPhone 13/14)</button>
+          <button type="button" data-size="1284x2778">1284 x 2778 (iPhone 13/14 Pro Max)</button>
+          <button type="button" data-size="1080x2400">1080 x 2400 (Android 20:9)</button>
+          <button type="button" data-size="1440x3200">1440 x 3200 (Galaxy S Ultra)</button>
+        </div>
+        <p class="hint">El marco negro se ajusta a la proporcion elegida; el visor interno conserva su tamano.</p>
+      </div>
+    </section>
+
+    <section class="viewer">
+      <div class="viewport" id="viewport">
+        <div class="contenedor">
+          <div class="img-canvas" id="storyCanvas">
+            <div class="account">
+              <div class="name-and-profile">
+                <div class="profile-pp" id="profilePreview"></div>
+                <span class="account-name" id="accountPreview">adraff.design</span>
+                <span class="hora">14h</span>
+              </div>
+              <span class="material-symbols-outlined more_vert">more_vert</span>
+            </div>
+
+            <div class="status-line">
+              <div class="line-status line-1">
+                <div class="line-1-completion"></div>
+              </div>
+              <div class="line-status line-2"></div>
+              <div class="line-status line-3"></div>
+            </div>
+
+            <div id="storyDropzone" class="dropzone overlay" role="button" tabindex="0" aria-label="Arrastra o selecciona una imagen de historia">
+              <input id="storyFile" type="file" accept="image/*" hidden />
+              <div class="drop-overlay-card">
+                <p class="drop-main">Arrastra y suelta la historia</p>
+                <p class="hint">Se previsualiza al instante</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-box-container">
+            <input type="text" class="text-box" placeholder="Send message">
+            <div class="icons-text-box">
+              <span class="material-symbols-outlined">favorite</span>
+              <span class="material-symbols-outlined">send</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
