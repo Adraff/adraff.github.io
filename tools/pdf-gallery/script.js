@@ -795,7 +795,7 @@ function renderSectionImages(sectionId) {
   section.images.forEach((imgData, index) => {
     const div = document.createElement("div");
     div.className = "section-image-item";
-    const badgeHtml = imgData.isVideo ? '<div class="video-badge">VIDEO</div>' : '';
+    const badgeHtml = imgData.isVideo ? '<div class="video-badge">VIDEO</div>' : "";
     div.innerHTML = `
       <img src="${imgData.src}" alt="${imgData.name}">
       ${badgeHtml}
@@ -1072,12 +1072,49 @@ async function addCoverPage(
 
     // Dividir la descripción en líneas (30% del ancho de página)
     const maxDescWidth = pageWidth * 0.3;
-    const descLines = pdf.splitTextToSize(description, maxDescWidth);
     const descLineHeight = descFontSize * 1.2;
 
-    // Dibujar la descripción (alineada a la izquierda, mismo margen que el título)
-    descLines.forEach((line) => {
-      pdf.text(line, marginLeft, currentY); // Mismo marginLeft que el título
+    // Detectar URLs en la descripción
+    // Regex simple para URLs (http/https)
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+    // Función para dividir una línea en fragmentos de texto y enlaces
+    function splitLineWithLinks(line) {
+      const parts = [];
+      let lastIndex = 0;
+      let match;
+      while ((match = urlRegex.exec(line)) !== null) {
+        if (match.index > lastIndex) {
+          parts.push({ text: line.substring(lastIndex, match.index), url: null });
+        }
+        parts.push({ text: match[0], url: match[0] });
+        lastIndex = match.index + match[0].length;
+      }
+      if (lastIndex < line.length) {
+        parts.push({ text: line.substring(lastIndex), url: null });
+      }
+      return parts;
+    }
+
+    // Reemplazar saltos de línea por espacios para un mejor corte
+    const descText = description.replace(/\n/g, " ");
+    // Detectar y separar en fragmentos de texto y enlaces
+    const fragments = splitLineWithLinks(descText);
+    // Para cada fragmento, usar splitTextToSize para cortar igual que el método original
+    let lines = [];
+    fragments.forEach((frag) => {
+      const fragLines = pdf.splitTextToSize(frag.text, maxDescWidth);
+      fragLines.forEach((line) => {
+        lines.push({ text: line, url: frag.url });
+      });
+    });
+    // Dibujar cada línea, usando textWithLink si es enlace
+    lines.forEach((lineObj) => {
+      if (lineObj.url) {
+        pdf.textWithLink(lineObj.text, marginLeft, currentY, { url: lineObj.url });
+      } else {
+        pdf.text(lineObj.text, marginLeft, currentY);
+      }
       currentY += descLineHeight;
     });
   }
@@ -1129,12 +1166,12 @@ async function addSectionImages(pdf, images, imagesPerRow, pageWidth, pageHeight
       const yOffset = (maxRowHeight - imgHeight) / 2;
 
       pdf.addImage(rowImages[i].src, "JPEG", x, y + yOffset, imageWidth, imgHeight);
-      
+
       // Dibujar badge "VIDEO" si es un video
       if (rowImages[i].isVideo === true) {
         drawVideoBadge(pdf, x + imageWidth - 35, y + yOffset + imgHeight - 28, 32, 24);
       }
-      
+
       x += imageWidth + gapBetweenImages;
     }
 
@@ -1147,21 +1184,21 @@ function drawVideoBadge(pdf, x, y, width, height) {
   // Fondo rojo con padding
   const paddingX = 8;
   const paddingY = 2;
-  
+
   pdf.setFillColor(220, 20, 60); // Rojo oscuro (Crimson)
   pdf.rect(x - paddingX, y - paddingY, width + paddingX * 2, height + paddingY * 2, "F");
-  
+
   // Borde negro
   pdf.setDrawColor(0, 0, 0);
   pdf.setLineWidth(0.5);
   pdf.rect(x - paddingX, y - paddingY, width + paddingX * 2, height + paddingY * 2);
-  
+
   // Texto "VIDEO"
   pdf.setTextColor(255, 255, 255);
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(11);
   pdf.text("VIDEO", x - paddingX + (width + paddingX * 2) / 2, y - paddingY + (height + paddingY * 2) / 2, { align: "center", baseline: "middle" });
-  
+
   // Resetear colores
   pdf.setDrawColor(0, 0, 0);
   pdf.setTextColor(0, 0, 0);
