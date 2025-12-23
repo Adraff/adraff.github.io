@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generador de Galería PDF</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="icon.ico" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <h1>Configuración PDF</h1>
+
+      <div class="controls">
+        <div class="control-group">
+          <label>Imágenes por fila: <span id="imagesPerRowValue">5</span></label>
+          <input type="range" id="imagesPerRow" min="1" max="10" value="5" />
+        </div>
+
+        <div class="control-group">
+          <label>Tamaño de página:</label>
+          <select id="pageSize">
+            <option value="a4">A4</option>
+            <option value="a3">A3</option>
+            <option value="custom" selected>Personalizado</option>
+          </select>
+
+          <div id="customSizeOptions" style="display: block">
+            <div class="custom-size-group">
+              <label>Unidad:</label>
+              <select id="customUnit">
+                <option value="px" selected>Píxeles (px)</option>
+                <option value="mm">Milímetros (mm)</option>
+              </select>
+            </div>
+            <div class="custom-size-inputs">
+              <div>
+                <label>Ancho:</label>
+                <input type="number" id="customWidth" min="1" value="1920" />
+              </div>
+              <div>
+                <label>Alto:</label>
+                <input type="number" id="customHeight" min="1" value="1080" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group" id="orientationControl" style="display: none">
+          <label>Orientación:</label>
+          <div class="orientation-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="portraitCheck" checked />
+              <span class="material-symbols-outlined">planner_banner_ad_pt</span>
+              Retrato
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="landscapeCheck" />
+              <span class="material-symbols-outlined">panorama</span>
+              Apaisado
+            </label>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>Imagen de fondo (opcional):</label>
+          <input type="file" id="backgroundImage" accept="image/*" />
+          <div id="backgroundPreview" class="background-preview" style="display: none">
+            <img id="backgroundImg" src="" alt="Fondo" />
+            <button id="removeBackground" class="remove-bg-btn">× Eliminar fondo</button>
+          </div>
+        </div>
+      </div>
+
+      <button id="generatePDF" class="generate-btn">Generar PDF</button>
+    </div>
+
+    <div class="main-content">
+      <div class="container">
+        <h1>Generador de Galería PDF</h1>
+
+        <div class="sections-controls">
+          <button id="addSection" class="add-section-btn">Nueva Sección</button>
+        </div>
+
+        <div id="sectionsContainer" class="sections-container"></div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
