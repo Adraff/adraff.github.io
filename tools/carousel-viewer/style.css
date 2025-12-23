@@ -1,0 +1,287 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+  --bg: #0b0f14;
+  --panel: #0f1729;
+  --card: #111826;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #ff4d67;
+  --text: #e7ecf5;
+  --muted: #9a9fb3;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 77, 103, 0.08), transparent 35%),
+    radial-gradient(circle at 80% 10%, rgba(95, 222, 255, 0.08), transparent 30%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+    height: 80dvh;
+}
+
+.controles {
+    background-color: var(--panel);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    width: 600px;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Estilos para la zona de carga */
+.upload-zone {
+    border: 2px dashed var(--border);
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-zone:hover {
+    border-color: var(--accent);
+    background-color: rgba(255, 77, 103, 0.05);
+}
+
+.upload-zone.drag-over {
+    border-color: var(--accent);
+    background-color: rgba(255, 77, 103, 0.1);
+}
+
+.upload-zone input[type="file"] {
+    display: none;
+}
+
+/* Contenedor de imágenes cargadas */
+.upload-zone.has-images {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.8rem;
+    justify-content: flex-start;
+    align-content: flex-start;
+    overflow-y: auto;
+    border: 2px solid var(--border);
+}
+
+.image-preview-item {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.2s ease;
+}
+
+.image-preview-item:hover {
+    transform: scale(1.05);
+    border-color: var(--accent);
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+}
+
+.delete-image-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    opacity: 0;
+}
+
+.image-preview-item:hover .delete-image-btn {
+    opacity: 1;
+    top: 4px;
+    right: 4px;
+}
+
+.delete-image-btn:hover {
+    background-color: #ff2d47;
+    transform: scale(1.1);
+}
+
+/* Botón para eliminar todas las imágenes */
+.clear-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    background-color: #ff2d47;
+    transform: translateY(-2px);
+}
+
+.viewer {
+    aspect-ratio: 9 / 20;
+    height: 100%;
+    background-color: black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.image-box {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scroll-marker-group: after;
+}
+
+.image-box::-webkit-scrollbar {
+    display: none;
+}
+
+.image-box::scroll-button(right){
+    content: '>';
+    position: absolute;
+    
+    align-self: flex-end;
+    
+}
+
+.image-box::scroll-button(left){
+    content: '<';
+    position: absolute;
+    align-self: flex-start
+}
+
+.image-box::scroll-button(left) , .image-box::scroll-button(right) {
+    width: 35px;
+    height: 35px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
+    margin: 10px;
+    background-color: rgba(255, 255, 255, 0.63);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 50%;
+}
+
+.image-box::scroll-button(left):hover , .image-box::scroll-button(right):hover {
+    opacity: 100%;
+}
+    
+
+.image-box::scroll-button(left):disabled , .image-box::scroll-button(right):disabled {
+    opacity: 0;
+}
+
+.image-box::scroll-marker-group {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    transform: translatey(-20px);
+}
+
+.image::scroll-marker {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.336);
+    cursor: pointer;
+    z-index: 100;
+}
+
+.image::scroll-marker:target-current {
+    background-color: rgba(255, 255, 255, 0.822);
+}
+
+
+.image {
+    aspect-ratio: 4 / 5;
+    height: 100%;
+    scroll-snap-align: center;
+}
+
+
+.image-1 {
+    background-image: linear-gradient(rgb(63, 63, 63) , rgb(22, 22, 22));
+}
+
+
+@media (max-width: 500px) {
+    .wrapper {
+        flex-direction: column;
+        height: 100dvh;
+        overflow-y: scroll;
+        width: 100%;
+        outline-offset: -1px;
+        scroll-snap-type: y mandatory;
+        gap: 0;
+    }
+
+    .controles {
+        aspect-ratio: 9 / 20;
+        height: 100dvh;
+        width: 100%;
+        border-radius: 0;
+        outline-offset: -2px;
+        scroll-snap-align: center;
+    }
+
+    .viewer {
+        height: 100dvh;
+        width: 100%;
+        
+        scroll-snap-align: center;
+    }
+
+    .image-box::scroll-button(left) , .image-box::scroll-button(right) {
+        display: none;
+    }
+}
