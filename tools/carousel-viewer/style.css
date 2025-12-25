@@ -246,6 +246,7 @@ body {
     aspect-ratio: 4 / 5;
     height: 100%;
     scroll-snap-align: center;
+    scroll-snap-stop: always;
 }
 
 
@@ -285,3 +286,4 @@ body {
         display: none;
     }
 }
+
