@@ -1,0 +1,24 @@
+body {
+    background-color: rgb(29, 29, 29);
+    color: snow ;
+    font-family: consolas;
+    font-size: 20px;
+}
+
+h1 {
+    color: cadetblue;
+}
+
+a{
+    color: aqua;
+}
+p {
+    margin-top: 5px;
+    margin-left: 20px;
+    font-style: italic;
+    opacity: 40%;
+}
+
+h2 {
+    margin-bottom: 0;
+}
