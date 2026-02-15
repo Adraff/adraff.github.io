@@ -8,24 +8,23 @@
 </head>
 <body>
 
-<div id="screen1" class="screen active">
-  <h1>¿Cuántos ganadores elegir?</h1>
-  <div class="buttons">
-    <button onclick="setWinners(1)">1</button>
-    <button onclick="setWinners(2)">2</button>
-    <button onclick="setWinners(3)">3</button>
-    <button onclick="customWinners()">Número personalizado</button>
-  </div>
+<!-- Texto esperando -->
+<div id="waiting">Esperando jugadores...</div>
+
+<!-- Menú hamburguesa -->
+<div id="menuBtn">
+  <span></span>
+  <span></span>
+  <span></span>
 </div>
 
-<div id="screen2" class="screen">
-  <h1>Esperando jugadores...</h1>
+<!-- Menú desplegable -->
+<div id="menu">
+  <button onclick="setWinners(1)">1 ganador</button>
+  <button onclick="setWinners(2)">2 ganadores</button>
+  <button onclick="setWinners(3)">3 ganadores</button>
+  <button onclick="customWinners()">Personalizado</button>
 </div>
 
-<div id="game" class="screen">
-  <canvas id="canvas"></canvas>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+<!-- Botón reiniciar -->
+<button id="restartBtn"
