@@ -1,14 +1,18 @@
 let winnersCount = 1;
 
-let liveTouches = {};      // antes de congelar
-let frozenTouches = {};    // después de congelar
+let liveTouches = {};
+let frozenTouches = {};
 
-let gameStarted = false;
 let rouletteStarted = false;
 let gameFinished = false;
 
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
+
+const waitingText = document.getElementById("waiting");
+const menuBtn = document.getElementById("menuBtn");
+const menu = document.getElementById("menu");
+const restartBtn = document.getElementById("restartBtn");
 
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
@@ -19,52 +23,48 @@ function resizeCanvas() {
   draw();
 }
 
+//
+// MENU
+//
+
+menuBtn.onclick = () => {
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+};
+
 function setWinners(n) {
   winnersCount = n;
-  goToWaiting();
+  menu.style.display = "none";
 }
 
 function customWinners() {
   let n = prompt("Ingrese número de ganadores:");
   winnersCount = parseInt(n) || 1;
-  goToWaiting();
-}
-
-function goToWaiting() {
-  document.getElementById("screen1").classList.remove("active");
-  document.getElementById("screen2").classList.add("active");
-
-  setTimeout(() => {
-    document.getElementById("screen2").classList.remove("active");
-    document.getElementById("game").classList.add("active");
-  }, 1500);
+  menu.style.display = "none";
 }
 
 //
-// DETECCIÓN DE DEDOS (solo antes de congelar)
+// DETECCIÓN
 //
 
 canvas.addEventListener("touchstart", (e) => {
   if (rouletteStarted) return;
 
-  e.preventDefault();
   const rect = canvas.getBoundingClientRect();
+  waitingText.style.display = "none";
+  menuBtn.style.display = "none";
+  menu.style.display = "none";
 
   for (let touch of e.changedTouches) {
     liveTouches[touch.identifier] = {
       x: touch.clientX - rect.left,
       y: touch.clientY - rect.top,
-      winner: false,
-      pulse: 0
+      winner: false
     };
   }
 
   draw();
 
-  if (!gameStarted) {
-    gameStarted = true;
-    startCountdown();
-  }
+  if (!rouletteStarted) startCountdown();
 });
 
 canvas.addEventListener("touchmove", (e) => {
@@ -82,22 +82,13 @@ canvas.addEventListener("touchmove", (e) => {
   draw();
 });
 
-canvas.addEventListener("touchend", (e) => {
-  if (rouletteStarted) return;
-
-  for (let touch of e.changedTouches) {
-    delete liveTouches[touch.identifier];
-  }
-
-  draw();
-});
-
 //
 // DIBUJO
 //
 
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function draw(backgroundWhite = false) {
+  ctx.fillStyle = backgroundWhite ? "white" : "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   const source = rouletteStarted ? frozenTouches : liveTouches;
 
@@ -105,15 +96,25 @@ function draw() {
     let t = source[id];
 
     ctx.beginPath();
-    ctx.arc(t.x, t.y, 70 + (t.pulse || 0), 0, Math.PI * 2);
+    ctx.arc(t.x, t.y, 70, 0, Math.PI * 2);
     ctx.lineWidth = 6;
 
-    if (t.winner) {
-      ctx.fillStyle = "white";
-      ctx.fill();
+    if (gameFinished) {
+      ctx.strokeStyle = "black";
+      if (t.winner) {
+        ctx.fillStyle = "black";
+        ctx.fill();
+      } else {
+        ctx.stroke();
+      }
     } else {
       ctx.strokeStyle = "white";
-      ctx.stroke();
+      if (t.winner) {
+        ctx.fillStyle = "white";
+        ctx.fill();
+      } else {
+        ctx.stroke();
+      }
     }
   }
 }
@@ -123,42 +124,25 @@ function draw() {
 //
 
 function startCountdown() {
+  rouletteStarted = true;
+
   let count = 5;
-
-  let el = document.createElement("div");
-  el.style.position = "absolute";
-  el.style.top = "50%";
-  el.style.left = "50%";
-  el.style.transform = "translate(-50%, -50%)";
-  el.style.fontSize = "120px";
-  el.style.fontWeight = "bold";
-  el.style.color = "white";
-  document.body.appendChild(el);
-
   let interval = setInterval(() => {
-    el.textContent = count;
     count--;
-
-    if (count < 0) {
+    if (count <= 0) {
       clearInterval(interval);
-      el.remove();
       freezePlayers();
       startRoulette();
     }
   }, 1000);
 }
 
-//
-// CONGELAR JUGADORES
-//
-
 function freezePlayers() {
   frozenTouches = JSON.parse(JSON.stringify(liveTouches));
-  rouletteStarted = true;
 }
 
 //
-// RULETA CON DESACELERACIÓN
+// RULETA
 //
 
 function startRoulette() {
@@ -175,12 +159,12 @@ function startRoulette() {
     draw();
 
     index = (index + 1) % keys.length;
-    speed += 25;
+    speed += 30;
 
     if (speed < 600) {
       setTimeout(spin, speed);
     } else {
-      chooseWinner(keys);
+      chooseWinner(keys[index]);
     }
   }
 
@@ -188,96 +172,56 @@ function startRoulette() {
 }
 
 //
-// ELECCIÓN FINAL
+// FINAL
 //
 
-function chooseWinner(keys) {
-  keys.forEach(k => frozenTouches[k].winner = false);
+function chooseWinner(winnerKey) {
+  Object.keys(frozenTouches).forEach(k => {
+    frozenTouches[k].winner = (k === winnerKey);
+  });
 
-  let shuffled = [...keys].sort(() => 0.5 - Math.random());
-  let winners = shuffled.slice(0, winnersCount);
-
-  winners.forEach(k => frozenTouches[k].winner = true);
-
-  animateWinner(winners);
-  navigator.vibrate && navigator.vibrate([200, 100, 200]);
+  expandWhiteCircle(frozenTouches[winnerKey]);
 }
 
 //
-// ANIMACIÓN GANADOR
+// ANIMACIÓN EXPANSIÓN
 //
 
-function animateWinner(winners) {
-  let frame = 0;
-  gameFinished = false;
+function expandWhiteCircle(winner) {
+  let radius = 0;
+  let maxRadius = Math.max(canvas.width, canvas.height) * 1.5;
 
-  function pulse() {
-    frame += 0.1;
+  function animate() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    winners.forEach(k => {
-      frozenTouches[k].pulse = Math.sin(frame) * 10;
-    });
+    ctx.beginPath();
+    ctx.arc(winner.x, winner.y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = "white";
+    ctx.fill();
 
-    draw();
+    radius += 40;
 
-    if (!gameFinished) {
-      requestAnimationFrame(pulse);
+    if (radius < maxRadius) {
+      requestAnimationFrame(animate);
+    } else {
+      gameFinished = true;
+      draw(true);
+      showRestart();
     }
   }
 
-  pulse();
-
-  showWinnerText();
-  showRestartButton();
-
-  gameFinished = true;
+  animate();
 }
 
 //
-// TEXTO GANADOR
+// REINICIAR
 //
 
-function showWinnerText() {
-  let el = document.createElement("div");
-  el.textContent = "GANADOR";
-  el.style.position = "absolute";
-  el.style.top = "20%";
-  el.style.left = "50%";
-  el.style.transform = "translateX(-50%)";
-  el.style.fontSize = "40px";
-  el.style.fontWeight = "bold";
-  el.style.color = "white";
-  document.body.appendChild(el);
-}
-
-//
-// BOTÓN REINICIAR
-//
-
-function showRestartButton() {
+function showRestart() {
   setTimeout(() => {
-    let btn = document.createElement("button");
-    btn.textContent = "Reiniciar";
-    btn.style.position = "absolute";
-    btn.style.bottom = "40px";
-    btn.style.left = "50%";
-    btn.style.transform = "translateX(-50%)";
-    btn.style.padding = "15px 30px";
-    btn.style.fontSize = "18px";
-    btn.style.borderRadius = "10px";
-    btn.style.border = "none";
-    btn.style.background = "white";
-    btn.style.color = "black";
-    btn.style.opacity = "0";
-    btn.style.transition = "opacity 0.6s ease";
-
-    btn.onclick = () => location.reload();
-
-    document.body.appendChild(btn);
-
-    setTimeout(() => {
-      btn.style.opacity = "1";
-    }, 50);
-
+    restartBtn.style.display = "block";
   }, 3000);
 }
+
+restartBtn.onclick = () => location.reload();
