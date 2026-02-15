@@ -5,23 +5,24 @@ let frozenTouches = {};
 
 let rouletteStarted = false;
 let gameFinished = false;
+let countdownStarted = false;
 
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
 const waitingText = document.getElementById("waiting");
 const menuBtn = document.getElementById("menuBtn");
 const menu = document.getElementById("menu");
 const restartBtn = document.getElementById("restartBtn");
 
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   draw();
 }
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 //
 // MENÚ
@@ -43,7 +44,7 @@ function customWinners() {
 }
 
 //
-// DETECCIÓN UNIVERSAL (POINTER EVENTS)
+// DETECCIÓN (POINTER EVENTS)
 //
 
 canvas.addEventListener("pointerdown", (e) => {
@@ -61,7 +62,10 @@ canvas.addEventListener("pointerdown", (e) => {
 
   draw();
 
-  if (!rouletteStarted) startCountdown();
+  if (!countdownStarted) {
+    countdownStarted = true;
+    startCountdown();
+  }
 });
 
 canvas.addEventListener("pointermove", (e) => {
@@ -123,9 +127,8 @@ function draw(backgroundWhite = false) {
 //
 
 function startCountdown() {
-  rouletteStarted = true;
-
   let count = 5;
+
   let interval = setInterval(() => {
     count--;
     if (count <= 0) {
@@ -138,6 +141,7 @@ function startCountdown() {
 
 function freezePlayers() {
   frozenTouches = JSON.parse(JSON.stringify(liveTouches));
+  rouletteStarted = true;
 }
 
 //
@@ -208,10 +212,6 @@ function expandWhiteCircle(winner) {
 
   animate();
 }
-
-//
-// REINICIAR
-//
 
 function showRestart() {
   setTimeout(() => {
