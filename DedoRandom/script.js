@@ -177,15 +177,21 @@ function startRoulette() {
   let keys = Object.keys(frozenTouches);
   if (keys.length === 0) return;
 
-  let duration = 7000; // 🔥 ahora dura 7 segundos
+  let duration = 7000; // duración fija real
   let startTime = null;
 
-  // 🔥 ganador real
+  // 🎲 ganador real
   let winnerIndex = Math.floor(Math.random() * keys.length);
 
-  // vueltas completas antes de caer
-  let extraRounds = 8; 
+  // 🎲 vueltas variables (esto cambia la percepción)
+  let extraRounds = 6 + Math.floor(Math.random() * 6); 
+  // entre 6 y 11 vueltas completas
+
   let totalSteps = keys.length * extraRounds + winnerIndex;
+
+  // 🎲 punto donde empieza a desacelerar fuerte
+  let slowPoint = 0.5 + Math.random() * 0.3; 
+  // entre 50% y 80% del tiempo
 
   function spin(timestamp) {
     if (!startTime) startTime = timestamp;
@@ -193,10 +199,18 @@ function startRoulette() {
     let elapsed = timestamp - startTime;
     let progress = Math.min(elapsed / duration, 1);
 
-    // easing suave desaceleración
-    let easeOut = 1 - Math.pow(1 - progress, 4);
+    let adjustedProgress;
 
-    let currentStep = Math.floor(easeOut * totalSteps);
+    if (progress < slowPoint) {
+      // fase rápida casi lineal
+      adjustedProgress = progress / slowPoint * 0.7;
+    } else {
+      // fase lenta fuerte easing
+      let slowProgress = (progress - slowPoint) / (1 - slowPoint);
+      adjustedProgress = 0.7 + (1 - Math.pow(1 - slowProgress, 4)) * 0.3;
+    }
+
+    let currentStep = Math.floor(adjustedProgress * totalSteps);
     let currentIndex = currentStep % keys.length;
 
     keys.forEach(k => frozenTouches[k].winner = false);
@@ -207,14 +221,21 @@ function startRoulette() {
     if (progress < 1) {
       requestAnimationFrame(spin);
     } else {
-      // 🔥 termina exactamente donde quedó visualmente
-      let finalKey = keys[currentIndex];
-      chooseWinner(finalKey);
+      // 🔥 FORZAMOS que el último frame sea exactamente el ganador
+      keys.forEach(k => frozenTouches[k].winner = false);
+      frozenTouches[keys[winnerIndex]].winner = true;
+      draw();
+
+      // pequeña pausa dramática antes de expandir
+      setTimeout(() => {
+        chooseWinner(keys[winnerIndex]);
+      }, 300);
     }
   }
 
   requestAnimationFrame(spin);
 }
+
 
 
 
@@ -268,6 +289,7 @@ function showRestart() {
 }
 
 restartBtn.addEventListener("click", () => location.reload());
+
 
 
 
