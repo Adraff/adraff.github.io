@@ -177,33 +177,37 @@ function startRoulette() {
   let keys = Object.keys(frozenTouches);
   if (keys.length === 0) return;
 
-  let duration = 2500; // duración total en ms
+  let duration = 4500; // 🔥 más tiempo = más intriga
   let startTime = null;
-  let index = 0;
+
+  // 🔥 ganador REALMENTE aleatorio
+  let randomIndex = Math.floor(Math.random() * keys.length);
+
+  // número total de "pasos" que va a recorrer
+  let totalSpins = keys.length * 6 + randomIndex; 
+  // 6 vueltas completas + caer en el ganador
 
   function spin(timestamp) {
     if (!startTime) startTime = timestamp;
 
     let elapsed = timestamp - startTime;
-    let progress = elapsed / duration;
+    let progress = Math.min(elapsed / duration, 1);
 
-    // easing de desaceleración suave
+    // easing suave de desaceleración
     let easeOut = 1 - Math.pow(1 - progress, 3);
 
-    // velocidad inicial alta que baja progresivamente
-    let speedFactor = Math.floor(easeOut * keys.length * 20);
-
-    index = speedFactor % keys.length;
+    let currentStep = Math.floor(easeOut * totalSpins);
+    let currentIndex = currentStep % keys.length;
 
     keys.forEach(k => frozenTouches[k].winner = false);
-    frozenTouches[keys[index]].winner = true;
+    frozenTouches[keys[currentIndex]].winner = true;
 
     draw();
 
     if (progress < 1) {
       requestAnimationFrame(spin);
     } else {
-      chooseWinner(keys[index]);
+      chooseWinner(keys[randomIndex]); // 🔥 cae exactamente en el ganador aleatorio
     }
   }
 
@@ -261,5 +265,6 @@ function showRestart() {
 }
 
 restartBtn.addEventListener("click", () => location.reload());
+
 
 
