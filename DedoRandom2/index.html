@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Selector de Ganadores</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="waiting">Esperando jugadores...</div>
+
+<div id="menuBtn">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div id="menu">
+  <button onclick="setWinners(1)">1 ganador</button>
+  <button onclick="setWinners(2)">2 ganadores</button>
+  <button onclick="setWinners(3)">3 ganadores</button>
+  <button onclick="customWinners()">Personalizado</button>
+</div>
+
+<button id="restartBtn">Reiniciar</button>
+
+<canvas id="canvas"></canvas>
+
+<script src="script.js"></script>
+</body>
+</html>
