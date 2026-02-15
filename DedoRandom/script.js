@@ -1,9 +1,11 @@
 let winnersCount = 1;
 let touches = {};
+let frozenTouches = {};
 let started = false;
+let gameFinished = false;
+
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
-let countdownEl;
 
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
@@ -34,11 +36,13 @@ function goToWaiting() {
   }, 1500);
 }
 
-// ==========================
-// DETECCIÓN DE DEDOS CORRECTA
-// ==========================
+// ============================
+// DETECCIÓN (solo antes de congelar)
+// ============================
 
 canvas.addEventListener("touchstart", (e) => {
+  if (started) return;
+
   e.preventDefault();
   const rect = canvas.getBoundingClientRect();
 
@@ -46,7 +50,9 @@ canvas.addEventListener("touchstart", (e) => {
     touches[touch.identifier] = {
       x: touch.clientX - rect.left,
       y: touch.clientY - rect.top,
-      active: false
+      active: false,
+      winner: false,
+      pulse: 0
     };
   }
 
@@ -59,6 +65,8 @@ canvas.addEventListener("touchstart", (e) => {
 });
 
 canvas.addEventListener("touchmove", (e) => {
+  if (started) return;
+
   const rect = canvas.getBoundingClientRect();
 
   for (let touch of e.changedTouches) {
@@ -72,6 +80,8 @@ canvas.addEventListener("touchmove", (e) => {
 });
 
 canvas.addEventListener("touchend", (e) => {
+  if (started) return;
+
   for (let touch of e.changedTouches) {
     delete touches[touch.identifier];
   }
@@ -79,21 +89,21 @@ canvas.addEventListener("touchend", (e) => {
   draw();
 });
 
-// ==========================
-// DIBUJO CORRECTO
-// ==========================
+// ============================
+// DIBUJO
+// ============================
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let id in touches) {
-    let t = touches[id];
+  for (let id in frozenTouches) {
+    let t = frozenTouches[id];
 
     ctx.beginPath();
-    ctx.arc(t.x, t.y, 70, 0, Math.PI * 2); // MAS GRANDE
+    ctx.arc(t.x, t.y, 70 + t.pulse, 0, Math.PI * 2);
     ctx.lineWidth = 6;
 
-    if (t.active) {
+    if (t.winner) {
       ctx.fillStyle = "white";
       ctx.fill();
     } else {
@@ -103,56 +113,62 @@ function draw() {
   }
 }
 
-// ==========================
+// ============================
 // CUENTA REGRESIVA
-// ==========================
+// ============================
 
 function startCountdown() {
   let count = 5;
 
-  countdownEl = document.createElement("div");
-  countdownEl.style.position = "absolute";
-  countdownEl.style.top = "50%";
-  countdownEl.style.left = "50%";
-  countdownEl.style.transform = "translate(-50%, -50%)";
-  countdownEl.style.fontSize = "120px";
-  countdownEl.style.fontWeight = "bold";
-  countdownEl.style.color = "white";
-  document.body.appendChild(countdownEl);
+  let el = document.createElement("div");
+  el.style.position = "absolute";
+  el.style.top = "50%";
+  el.style.left = "50%";
+  el.style.transform = "translate(-50%, -50%)";
+  el.style.fontSize = "120px";
+  el.style.fontWeight = "bold";
+  document.body.appendChild(el);
 
   let interval = setInterval(() => {
-    countdownEl.textContent = count;
+    el.textContent = count;
     count--;
 
     if (count < 0) {
       clearInterval(interval);
-      countdownEl.remove();
+      el.remove();
+      freezePlayers();
       startRoulette();
     }
   }, 1000);
 }
 
-// ==========================
-// RULETA REAL CON DESACELERACIÓN
-// ==========================
+// ============================
+// CONGELAR JUGADORES
+// ============================
+
+function freezePlayers() {
+  frozenTouches = JSON.parse(JSON.stringify(touches));
+}
+
+// ============================
+// RULETA
+// ============================
 
 function startRoulette() {
-  let keys = Object.keys(touches);
-
+  let keys = Object.keys(frozenTouches);
   if (keys.length === 0) return;
 
   let index = 0;
   let speed = 80;
 
   function spin() {
-    keys.forEach(k => touches[k].active = false);
+    keys.forEach(k => frozenTouches[k].winner = false);
 
-    touches[keys[index]].active = true;
+    frozenTouches[keys[index]].winner = true;
     draw();
 
     index = (index + 1) % keys.length;
-
-    speed += 15; // desacelera
+    speed += 20;
 
     if (speed < 500) {
       setTimeout(spin, speed);
@@ -164,19 +180,85 @@ function startRoulette() {
   spin();
 }
 
-// ==========================
+// ============================
 // ELECCIÓN FINAL
-// ==========================
+// ============================
 
 function chooseWinner(keys) {
-  keys.forEach(k => touches[k].active = false);
+  keys.forEach(k => frozenTouches[k].winner = false);
 
   let shuffled = keys.sort(() => 0.5 - Math.random());
   let winners = shuffled.slice(0, winnersCount);
 
-  winners.forEach(k => touches[k].active = true);
+  winners.forEach(k => frozenTouches[k].winner = true);
 
-  draw();
-
+  animateWinner(winners);
   navigator.vibrate && navigator.vibrate([200, 100, 200]);
+}
+
+// ============================
+// ANIMACIÓN GANADOR
+// ============================
+
+function animateWinner(winners) {
+  let frame = 0;
+
+  function pulse() {
+    frame += 0.1;
+
+    winners.forEach(k => {
+      frozenTouches[k].pulse = Math.sin(frame) * 10;
+    });
+
+    draw();
+
+    if (!gameFinished) {
+      requestAnimationFrame(pulse);
+    }
+  }
+
+  pulse();
+
+  showWinnerText();
+  showRestartButton();
+  gameFinished = true;
+}
+
+// ============================
+// TEXTO GANADOR
+// ============================
+
+function showWinnerText() {
+  let el = document.createElement("div");
+  el.textContent = "GANADOR";
+  el.style.position = "absolute";
+  el.style.top = "20%";
+  el.style.left = "50%";
+  el.style.transform = "translateX(-50%)";
+  el.style.fontSize = "40px";
+  el.style.fontWeight = "bold";
+  document.body.appendChild(el);
+}
+
+// ============================
+// BOTÓN REINICIAR
+// ============================
+
+function showRestartButton() {
+  setTimeout(() => {
+    let btn = document.createElement("button");
+    btn.id = "restartBtn";
+    btn.textContent = "Reiniciar";
+    btn.onclick = resetGame;
+
+    document.body.appendChild(btn);
+
+    setTimeout(() => {
+      btn.style.opacity = "1";
+    }, 50);
+  }, 3000);
+}
+
+function resetGame() {
+  location.reload();
 }
