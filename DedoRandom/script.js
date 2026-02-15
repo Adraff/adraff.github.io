@@ -177,15 +177,15 @@ function startRoulette() {
   let keys = Object.keys(frozenTouches);
   if (keys.length === 0) return;
 
-  let duration = 4500; // 🔥 más tiempo = más intriga
+  let duration = 7000; // 🔥 ahora dura 7 segundos
   let startTime = null;
 
-  // 🔥 ganador REALMENTE aleatorio
-  let randomIndex = Math.floor(Math.random() * keys.length);
+  // 🔥 ganador real
+  let winnerIndex = Math.floor(Math.random() * keys.length);
 
-  // número total de "pasos" que va a recorrer
-  let totalSpins = keys.length * 6 + randomIndex; 
-  // 6 vueltas completas + caer en el ganador
+  // vueltas completas antes de caer
+  let extraRounds = 8; 
+  let totalSteps = keys.length * extraRounds + winnerIndex;
 
   function spin(timestamp) {
     if (!startTime) startTime = timestamp;
@@ -193,10 +193,10 @@ function startRoulette() {
     let elapsed = timestamp - startTime;
     let progress = Math.min(elapsed / duration, 1);
 
-    // easing suave de desaceleración
-    let easeOut = 1 - Math.pow(1 - progress, 3);
+    // easing suave desaceleración
+    let easeOut = 1 - Math.pow(1 - progress, 4);
 
-    let currentStep = Math.floor(easeOut * totalSpins);
+    let currentStep = Math.floor(easeOut * totalSteps);
     let currentIndex = currentStep % keys.length;
 
     keys.forEach(k => frozenTouches[k].winner = false);
@@ -207,12 +207,15 @@ function startRoulette() {
     if (progress < 1) {
       requestAnimationFrame(spin);
     } else {
-      chooseWinner(keys[randomIndex]); // 🔥 cae exactamente en el ganador aleatorio
+      // 🔥 termina exactamente donde quedó visualmente
+      let finalKey = keys[currentIndex];
+      chooseWinner(finalKey);
     }
   }
 
   requestAnimationFrame(spin);
 }
+
 
 
 //
@@ -265,6 +268,7 @@ function showRestart() {
 }
 
 restartBtn.addEventListener("click", () => location.reload());
+
 
 
 
