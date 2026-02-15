@@ -1,7 +1,10 @@
 let winnersCount = 1;
-let touches = {};
-let frozenTouches = {};
-let started = false;
+
+let liveTouches = {};      // antes de congelar
+let frozenTouches = {};    // después de congelar
+
+let gameStarted = false;
+let rouletteStarted = false;
 let gameFinished = false;
 
 let canvas = document.getElementById("canvas");
@@ -13,6 +16,7 @@ window.addEventListener("resize", resizeCanvas);
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  draw();
 }
 
 function setWinners(n) {
@@ -36,21 +40,20 @@ function goToWaiting() {
   }, 1500);
 }
 
-// ============================
-// DETECCIÓN (solo antes de congelar)
-// ============================
+//
+// DETECCIÓN DE DEDOS (solo antes de congelar)
+//
 
 canvas.addEventListener("touchstart", (e) => {
-  if (started) return;
+  if (rouletteStarted) return;
 
   e.preventDefault();
   const rect = canvas.getBoundingClientRect();
 
   for (let touch of e.changedTouches) {
-    touches[touch.identifier] = {
+    liveTouches[touch.identifier] = {
       x: touch.clientX - rect.left,
       y: touch.clientY - rect.top,
-      active: false,
       winner: false,
       pulse: 0
     };
@@ -58,21 +61,21 @@ canvas.addEventListener("touchstart", (e) => {
 
   draw();
 
-  if (!started) {
-    started = true;
+  if (!gameStarted) {
+    gameStarted = true;
     startCountdown();
   }
 });
 
 canvas.addEventListener("touchmove", (e) => {
-  if (started) return;
+  if (rouletteStarted) return;
 
   const rect = canvas.getBoundingClientRect();
 
   for (let touch of e.changedTouches) {
-    if (touches[touch.identifier]) {
-      touches[touch.identifier].x = touch.clientX - rect.left;
-      touches[touch.identifier].y = touch.clientY - rect.top;
+    if (liveTouches[touch.identifier]) {
+      liveTouches[touch.identifier].x = touch.clientX - rect.left;
+      liveTouches[touch.identifier].y = touch.clientY - rect.top;
     }
   }
 
@@ -80,27 +83,29 @@ canvas.addEventListener("touchmove", (e) => {
 });
 
 canvas.addEventListener("touchend", (e) => {
-  if (started) return;
+  if (rouletteStarted) return;
 
   for (let touch of e.changedTouches) {
-    delete touches[touch.identifier];
+    delete liveTouches[touch.identifier];
   }
 
   draw();
 });
 
-// ============================
+//
 // DIBUJO
-// ============================
+//
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let id in frozenTouches) {
-    let t = frozenTouches[id];
+  const source = rouletteStarted ? frozenTouches : liveTouches;
+
+  for (let id in source) {
+    let t = source[id];
 
     ctx.beginPath();
-    ctx.arc(t.x, t.y, 70 + t.pulse, 0, Math.PI * 2);
+    ctx.arc(t.x, t.y, 70 + (t.pulse || 0), 0, Math.PI * 2);
     ctx.lineWidth = 6;
 
     if (t.winner) {
@@ -113,9 +118,9 @@ function draw() {
   }
 }
 
-// ============================
+//
 // CUENTA REGRESIVA
-// ============================
+//
 
 function startCountdown() {
   let count = 5;
@@ -127,6 +132,7 @@ function startCountdown() {
   el.style.transform = "translate(-50%, -50%)";
   el.style.fontSize = "120px";
   el.style.fontWeight = "bold";
+  el.style.color = "white";
   document.body.appendChild(el);
 
   let interval = setInterval(() => {
@@ -142,17 +148,18 @@ function startCountdown() {
   }, 1000);
 }
 
-// ============================
+//
 // CONGELAR JUGADORES
-// ============================
+//
 
 function freezePlayers() {
-  frozenTouches = JSON.parse(JSON.stringify(touches));
+  frozenTouches = JSON.parse(JSON.stringify(liveTouches));
+  rouletteStarted = true;
 }
 
-// ============================
-// RULETA
-// ============================
+//
+// RULETA CON DESACELERACIÓN
+//
 
 function startRoulette() {
   let keys = Object.keys(frozenTouches);
@@ -168,9 +175,9 @@ function startRoulette() {
     draw();
 
     index = (index + 1) % keys.length;
-    speed += 20;
+    speed += 25;
 
-    if (speed < 500) {
+    if (speed < 600) {
       setTimeout(spin, speed);
     } else {
       chooseWinner(keys);
@@ -180,14 +187,14 @@ function startRoulette() {
   spin();
 }
 
-// ============================
+//
 // ELECCIÓN FINAL
-// ============================
+//
 
 function chooseWinner(keys) {
   keys.forEach(k => frozenTouches[k].winner = false);
 
-  let shuffled = keys.sort(() => 0.5 - Math.random());
+  let shuffled = [...keys].sort(() => 0.5 - Math.random());
   let winners = shuffled.slice(0, winnersCount);
 
   winners.forEach(k => frozenTouches[k].winner = true);
@@ -196,12 +203,13 @@ function chooseWinner(keys) {
   navigator.vibrate && navigator.vibrate([200, 100, 200]);
 }
 
-// ============================
+//
 // ANIMACIÓN GANADOR
-// ============================
+//
 
 function animateWinner(winners) {
   let frame = 0;
+  gameFinished = false;
 
   function pulse() {
     frame += 0.1;
@@ -221,12 +229,13 @@ function animateWinner(winners) {
 
   showWinnerText();
   showRestartButton();
+
   gameFinished = true;
 }
 
-// ============================
+//
 // TEXTO GANADOR
-// ============================
+//
 
 function showWinnerText() {
   let el = document.createElement("div");
@@ -237,28 +246,38 @@ function showWinnerText() {
   el.style.transform = "translateX(-50%)";
   el.style.fontSize = "40px";
   el.style.fontWeight = "bold";
+  el.style.color = "white";
   document.body.appendChild(el);
 }
 
-// ============================
+//
 // BOTÓN REINICIAR
-// ============================
+//
 
 function showRestartButton() {
   setTimeout(() => {
     let btn = document.createElement("button");
-    btn.id = "restartBtn";
     btn.textContent = "Reiniciar";
-    btn.onclick = resetGame;
+    btn.style.position = "absolute";
+    btn.style.bottom = "40px";
+    btn.style.left = "50%";
+    btn.style.transform = "translateX(-50%)";
+    btn.style.padding = "15px 30px";
+    btn.style.fontSize = "18px";
+    btn.style.borderRadius = "10px";
+    btn.style.border = "none";
+    btn.style.background = "white";
+    btn.style.color = "black";
+    btn.style.opacity = "0";
+    btn.style.transition = "opacity 0.6s ease";
+
+    btn.onclick = () => location.reload();
 
     document.body.appendChild(btn);
 
     setTimeout(() => {
       btn.style.opacity = "1";
     }, 50);
-  }, 3000);
-}
 
-function resetGame() {
-  location.reload();
+  }, 3000);
 }
