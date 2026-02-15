@@ -1,40 +1,81 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #000000; /* negro puro OLED */
-  color: white;
-  text-align: center;
+  background: #000000;
   overflow: hidden;
 }
 
-.screen {
-  display: none;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+canvas {
+  display: block;
 }
 
-.active {
-  display: flex;
+#waiting {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px;
+  color: white;
+  animation: blink 1.5s infinite;
 }
 
-button {
-  padding: 15px 30px;
-  margin: 10px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
+@keyframes blink {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Menú hamburguesa */
+#menuBtn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#menuBtn span {
+  display: block;
+  height: 4px;
   background: white;
-  color: black;
+  margin: 4px 0;
+  border-radius: 2px;
+}
+
+#menu {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  background: black;
+  border: 1px solid white;
+  padding: 10px;
+  display: none;
+  z-index: 10;
+}
+
+#menu button {
+  display: block;
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px;
+  background: white;
+  border: none;
   font-weight: bold;
 }
 
+/* Reiniciar */
 #restartBtn {
   position: absolute;
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.6s ease;
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  background: black;
+  color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  display: none;
+  z-index: 20;
 }
