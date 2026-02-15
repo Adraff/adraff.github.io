@@ -24,12 +24,12 @@ function resizeCanvas() {
 }
 
 //
-// MENU
+// MENÚ
 //
 
-menuBtn.onclick = () => {
+menuBtn.addEventListener("click", () => {
   menu.style.display = menu.style.display === "block" ? "none" : "block";
-};
+});
 
 function setWinners(n) {
   winnersCount = n;
@@ -43,42 +43,41 @@ function customWinners() {
 }
 
 //
-// DETECCIÓN
+// DETECCIÓN UNIVERSAL (POINTER EVENTS)
 //
 
-canvas.addEventListener("touchstart", (e) => {
+canvas.addEventListener("pointerdown", (e) => {
   if (rouletteStarted) return;
 
-  const rect = canvas.getBoundingClientRect();
   waitingText.style.display = "none";
   menuBtn.style.display = "none";
   menu.style.display = "none";
 
-  for (let touch of e.changedTouches) {
-    liveTouches[touch.identifier] = {
-      x: touch.clientX - rect.left,
-      y: touch.clientY - rect.top,
-      winner: false
-    };
-  }
+  liveTouches[e.pointerId] = {
+    x: e.clientX,
+    y: e.clientY,
+    winner: false
+  };
 
   draw();
 
   if (!rouletteStarted) startCountdown();
 });
 
-canvas.addEventListener("touchmove", (e) => {
+canvas.addEventListener("pointermove", (e) => {
   if (rouletteStarted) return;
 
-  const rect = canvas.getBoundingClientRect();
-
-  for (let touch of e.changedTouches) {
-    if (liveTouches[touch.identifier]) {
-      liveTouches[touch.identifier].x = touch.clientX - rect.left;
-      liveTouches[touch.identifier].y = touch.clientY - rect.top;
-    }
+  if (liveTouches[e.pointerId]) {
+    liveTouches[e.pointerId].x = e.clientX;
+    liveTouches[e.pointerId].y = e.clientY;
+    draw();
   }
+});
 
+canvas.addEventListener("pointerup", (e) => {
+  if (rouletteStarted) return;
+
+  delete liveTouches[e.pointerId];
   draw();
 });
 
@@ -183,10 +182,6 @@ function chooseWinner(winnerKey) {
   expandWhiteCircle(frozenTouches[winnerKey]);
 }
 
-//
-// ANIMACIÓN EXPANSIÓN
-//
-
 function expandWhiteCircle(winner) {
   let radius = 0;
   let maxRadius = Math.max(canvas.width, canvas.height) * 1.5;
@@ -224,4 +219,4 @@ function showRestart() {
   }, 3000);
 }
 
-restartBtn.onclick = () => location.reload();
+restartBtn.addEventListener("click", () => location.reload());
