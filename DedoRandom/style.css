@@ -1,8 +1,10 @@
-body {
-  margin: 0;
+html, body {
   font-family: Arial, sans-serif;
-  background: #000;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+  touch-action: none; /* 🔥 evita zoom y gestos */
+  background: black;
 }
 
 canvas {
@@ -10,6 +12,8 @@ canvas {
   top: 0;
   left: 0;
   z-index: 1;
+  display: block;
+  touch-action: none; /* 🔥 importantísimo */
 }
 
 #waiting {
@@ -81,3 +85,4 @@ canvas {
   display: none;
   z-index: 20;
 }
+
