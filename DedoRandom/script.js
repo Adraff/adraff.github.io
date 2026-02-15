@@ -163,26 +163,30 @@ function startRoulette() {
   let keys = Object.keys(frozenTouches);
   if (keys.length === 0) return;
 
+  let duration = 2500; // duración total en ms
+  let startTime = null;
   let index = 0;
-  let speed = 50;
-  let lastTime = 0;
 
   function spin(timestamp) {
-    if (!lastTime) lastTime = timestamp;
+    if (!startTime) startTime = timestamp;
 
-    if (timestamp - lastTime > speed) {
-      keys.forEach(k => frozenTouches[k].winner = false);
+    let elapsed = timestamp - startTime;
+    let progress = elapsed / duration;
 
-      frozenTouches[keys[index]].winner = true;
+    // easing de desaceleración suave
+    let easeOut = 1 - Math.pow(1 - progress, 3);
 
-      draw();
+    // velocidad inicial alta que baja progresivamente
+    let speedFactor = Math.floor(easeOut * keys.length * 20);
 
-      index = (index + 1) % keys.length;
-      speed += 15; // desacelera progresivamente
-      lastTime = timestamp;
-    }
+    index = speedFactor % keys.length;
 
-    if (speed < 400) {
+    keys.forEach(k => frozenTouches[k].winner = false);
+    frozenTouches[keys[index]].winner = true;
+
+    draw();
+
+    if (progress < 1) {
       requestAnimationFrame(spin);
     } else {
       chooseWinner(keys[index]);
@@ -243,3 +247,4 @@ function showRestart() {
 }
 
 restartBtn.addEventListener("click", () => location.reload());
+
