@@ -3,26 +3,26 @@ let winnersCount = 1;
 let liveTouches = {};
 let frozenTouches = {};
 
+let countdownStarted = false;
 let rouletteStarted = false;
 let gameFinished = false;
-let countdownStarted = false;
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
 
 const waitingText = document.getElementById("waiting");
 const menuBtn = document.getElementById("menuBtn");
 const menu = document.getElementById("menu");
 const restartBtn = document.getElementById("restartBtn");
 
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   draw();
 }
-
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
 
 //
 // MENÚ
@@ -44,7 +44,7 @@ function customWinners() {
 }
 
 //
-// DETECCIÓN (POINTER EVENTS)
+// POINTER EVENTS
 //
 
 canvas.addEventListener("pointerdown", (e) => {
@@ -62,10 +62,7 @@ canvas.addEventListener("pointerdown", (e) => {
 
   draw();
 
-  if (!countdownStarted) {
-    countdownStarted = true;
-    startCountdown();
-  }
+  if (!countdownStarted) startCountdown();
 });
 
 canvas.addEventListener("pointermove", (e) => {
@@ -112,36 +109,45 @@ function draw(backgroundWhite = false) {
       }
     } else {
       ctx.strokeStyle = "white";
-      if (t.winner) {
-        ctx.fillStyle = "white";
-        ctx.fill();
-      } else {
-        ctx.stroke();
-      }
+      ctx.stroke();
     }
   }
 }
 
 //
-// CUENTA REGRESIVA
+// CONTADOR
 //
 
 function startCountdown() {
+  countdownStarted = true;
+
   let count = 5;
 
-  let interval = setInterval(() => {
+  function showCount() {
+    draw();
+
+    ctx.fillStyle = "white";
+    ctx.font = "bold 120px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(count, canvas.width / 2, canvas.height / 2);
+
     count--;
-    if (count <= 0) {
-      clearInterval(interval);
+
+    if (count >= 0) {
+      setTimeout(showCount, 1000);
+    } else {
       freezePlayers();
       startRoulette();
     }
-  }, 1000);
+  }
+
+  showCount();
 }
 
 function freezePlayers() {
-  frozenTouches = JSON.parse(JSON.stringify(liveTouches));
   rouletteStarted = true;
+  frozenTouches = JSON.parse(JSON.stringify(liveTouches));
 }
 
 //
@@ -212,6 +218,10 @@ function expandWhiteCircle(winner) {
 
   animate();
 }
+
+//
+// REINICIAR
+//
 
 function showRestart() {
   setTimeout(() => {
