@@ -121,28 +121,33 @@ function draw(backgroundWhite = false) {
 function startCountdown() {
   countdownStarted = true;
 
-  let count = 5;
+  let duration = 5000; // 5 segundos
+  let startTime = null;
 
-  function showCount() {
+  function animate(timestamp) {
+    if (!startTime) startTime = timestamp;
+
+    let elapsed = timestamp - startTime;
+    let remaining = Math.max(0, duration - elapsed);
+    let seconds = Math.ceil(remaining / 1000);
+
     draw();
 
     ctx.fillStyle = "white";
-    ctx.font = "bold 120px Arial";
+    ctx.font = "bold 140px Arial";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(count, canvas.width / 2, canvas.height / 2);
+    ctx.fillText(seconds, canvas.width / 2, canvas.height / 2);
 
-    count--;
-
-    if (count >= 0) {
-      setTimeout(showCount, 1000);
+    if (remaining > 0) {
+      requestAnimationFrame(animate);
     } else {
       freezePlayers();
       startRoulette();
     }
   }
 
-  showCount();
+  requestAnimationFrame(animate);
 }
 
 function freezePlayers() {
@@ -159,26 +164,34 @@ function startRoulette() {
   if (keys.length === 0) return;
 
   let index = 0;
-  let speed = 80;
+  let speed = 50;
+  let lastTime = 0;
 
-  function spin() {
-    keys.forEach(k => frozenTouches[k].winner = false);
+  function spin(timestamp) {
+    if (!lastTime) lastTime = timestamp;
 
-    frozenTouches[keys[index]].winner = true;
-    draw();
+    if (timestamp - lastTime > speed) {
+      keys.forEach(k => frozenTouches[k].winner = false);
 
-    index = (index + 1) % keys.length;
-    speed += 30;
+      frozenTouches[keys[index]].winner = true;
 
-    if (speed < 600) {
-      setTimeout(spin, speed);
+      draw();
+
+      index = (index + 1) % keys.length;
+      speed += 15; // desacelera progresivamente
+      lastTime = timestamp;
+    }
+
+    if (speed < 400) {
+      requestAnimationFrame(spin);
     } else {
       chooseWinner(keys[index]);
     }
   }
 
-  spin();
+  requestAnimationFrame(spin);
 }
+
 
 //
 // FINAL
