@@ -100,6 +100,7 @@ function draw(backgroundWhite = false) {
     ctx.lineWidth = 6;
 
     if (gameFinished) {
+      // ESTADO FINAL (invertido)
       ctx.strokeStyle = "black";
       if (t.winner) {
         ctx.fillStyle = "black";
@@ -107,12 +108,25 @@ function draw(backgroundWhite = false) {
       } else {
         ctx.stroke();
       }
+
+    } else if (rouletteStarted) {
+      // 🔥 DURANTE RULETA (ahora sí se ve)
+      ctx.strokeStyle = "white";
+      if (t.winner) {
+        ctx.fillStyle = "white";
+        ctx.fill();
+      } else {
+        ctx.stroke();
+      }
+
     } else {
+      // ANTES DE RULETA
       ctx.strokeStyle = "white";
       ctx.stroke();
     }
   }
 }
+
 
 //
 // CONTADOR
@@ -247,4 +261,5 @@ function showRestart() {
 }
 
 restartBtn.addEventListener("click", () => location.reload());
+
 
