@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" data-text="md" data-contrast="normal" data-motion="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>APTER · Evaluación de aptitud territorial</title>
+  <link rel="icon" type="image/svg+xml" href="assets/img/APTERb.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#view">Saltar al contenido</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#" id="brand" aria-label="APTER, ir al inicio">
+        <img class="brand-apter" src="assets/img/APTERb.svg" alt="APTER">
+        <img class="brand-inst" src="assets/img/IRPHa-CONICET-UNSJ-Web-2.png" alt="CONICET, Universidad Nacional de San Juan, IRPHa">
+      </a>
+      <nav class="tabs" id="tabs" aria-label="Secciones de la aplicación">
+        <button type="button" class="tab" data-tab="evaluacion">Evaluación</button>
+        <button type="button" class="tab" data-tab="control"><span class="t-long">Control de Evaluaciones</span><span class="t-short">Control</span></button>
+        <button type="button" class="tab" data-tab="info">Información</button>
+        <button type="button" class="tab" data-tab="manual"><span class="t-long">Manual de uso</span><span class="t-short">Manual</span></button>
+      </nav>
+      <button type="button" class="a11y-btn" id="a11y-btn" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.5" r="2" fill="currentColor"/><path d="M5 8.5h14M12 8.5v5m0 0-3 7m3-7 3 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Accesibilidad</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="view" class="view" tabindex="-1"></main>
+
+  <div id="sr-status" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="overlay-root"></div>
+
+  <script src="data/evaluacion.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/model.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/tour.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
